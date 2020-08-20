@@ -1,0 +1,101 @@
+swagger: '2.0'
+info:
+  description: This is a simple API
+  version: 1.0.0
+  title: Simple Inventory API
+  # put the contact info for your development or API team
+  contact:
+    email: you@your-company.com
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+- name: clientes
+  description: Operações relacionadas ao clientes
+- name: produtos
+  description: Operações relacionadas aos produtos
+
+paths:
+  /clientes:
+    post:
+      tags:
+      - clientes
+      summary: add an cliente
+      operationId: addCliente
+      description: Add an cliente to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: Cliente
+        description: Cliente to add
+        schema:
+          $ref: '#/definitions/Cliente'
+      responses:
+        201:
+          description: cliente created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing cliente already exists
+  /clientes/clienteId:
+    get:
+      tags:
+      - clientes
+      summary: searches inventory
+      operationId: searchInventory
+      description: Get cliente
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: searchString
+        description: pass an optional search string for looking up inventory
+        required: false
+        type: string
+      - in: query
+        name: skip
+        description: number of records to skip for pagination
+        type: integer
+        format: int32
+        minimum: 0
+      - in: query
+        name: limit
+        description: maximum number of records to return
+        type: integer
+        format: int32
+        minimum: 0
+        maximum: 50
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Cliente'
+        400:
+          description: bad input parameter
+    
+definitions:
+  Cliente:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+  Produto:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /bruno.silva/InvestX/1.0.0
+schemes:
+ - https
