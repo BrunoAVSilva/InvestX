@@ -17,6 +17,9 @@ tags:
   description: Operações relacionadas ao clientes
 - name: produtos
   description: Operações relacionadas aos produtos
+- name: acoes
+  description: Operações relacionadas a ações
+
 
 paths:
   /clientes:
@@ -80,6 +83,79 @@ paths:
               $ref: '#/definitions/Cliente'
         400:
           description: bad input parameter
+  /acoes:
+    get:
+      tags:
+      - acoes
+      summary: obtenção de ações do usuário
+      operationId: getAcoes
+      description: Obtém os ações do usuário
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: searchString
+        description: pass an optional search string for looking up inventory
+        required: false
+        type: string
+      - in: query
+        name: skip
+        description: number of records to skip for pagination
+        type: integer
+        format: int32
+        minimum: 0
+      - in: query
+        name: limit
+        description: maximum number of records to return
+        type: integer
+        format: int32
+        minimum: 0
+        maximum: 50
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Cliente'
+        400:
+          description: bad input parameter
+  /acoes/vender:
+    post:
+      tags:
+      - acoes
+      summary: Realiza venda de ações
+      description: Retorna o sucesso da venda
+      operationId: venderAcoes
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: object
+            additionalProperties:
+              type: integer
+              format: int32
+  /acoes/comprar:
+    post:
+      tags:
+      - acoes
+      summary: Realiza compra de ações
+      description: Retorna o sucesso da compra
+      operationId: comprarAcoes
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: object
+            additionalProperties:
+              type: integer
+              format: int32
     
 definitions:
   Cliente:
@@ -96,6 +172,8 @@ definitions:
         format: int64
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
-basePath: /bruno.silva/InvestX/1.0.0
+# basePath: /bruno.silva/InvestX/1.0.0
 schemes:
  - https
+# Added by API Auto Mocking Plugin
+basePath: /ramuspedro/investx/1.0.0
