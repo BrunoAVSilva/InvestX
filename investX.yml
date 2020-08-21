@@ -19,6 +19,8 @@ tags:
   description: Operações relacionadas aos produtos
 - name: acoes
   description: Operações relacionadas a ações
+- name: bitcoins
+  description: Operações relacionadas a bitcoins
 
 
 paths:
@@ -92,32 +94,10 @@ paths:
       description: Obtém os ações do usuário
       produces:
       - application/json
-      parameters:
-      - in: query
-        name: searchString
-        description: pass an optional search string for looking up inventory
-        required: false
-        type: string
-      - in: query
-        name: skip
-        description: number of records to skip for pagination
-        type: integer
-        format: int32
-        minimum: 0
-      - in: query
-        name: limit
-        description: maximum number of records to return
-        type: integer
-        format: int32
-        minimum: 0
-        maximum: 50
+      parameters: []
       responses:
         200:
-          description: search results matching criteria
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Cliente'
+          description: successful operation
         400:
           description: bad input parameter
   /acoes/vender:
@@ -129,15 +109,16 @@ paths:
       operationId: venderAcoes
       produces:
       - application/json
-      parameters: []
+      parameters:
+      - in: body
+        name: body
+        description: Campos de venda
+        required: true
+        schema:
+          $ref: '#/definitions/Acoes'
       responses:
-        200:
+        default:
           description: successful operation
-          schema:
-            type: object
-            additionalProperties:
-              type: integer
-              format: int32
   /acoes/comprar:
     post:
       tags:
@@ -147,15 +128,69 @@ paths:
       operationId: comprarAcoes
       produces:
       - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Campos de compra
+        required: true
+        schema:
+          $ref: '#/definitions/Acoes'
+      responses:
+        default:
+          description: successful operation
+  /bitcoins:
+    get:
+      tags:
+      - bitcoins
+      summary: obtenção de bitcoins do usuário
+      operationId: getBitcoins
+      description: Obtém os bitcoins do usuário
+      produces:
+      - application/json
       parameters: []
       responses:
         200:
           description: successful operation
-          schema:
-            type: object
-            additionalProperties:
-              type: integer
-              format: int32
+        400:
+          description: bad input parameter
+  /bitcoins/vender:
+    post:
+      tags:
+      - bitcoins
+      summary: Realiza venda de bitcoins
+      description: Retorna o sucesso da venda de bitcoins
+      operationId: venderBitcoins
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Campos de venda
+        required: true
+        schema:
+          $ref: '#/definitions/Bitcoins'
+      responses:
+        default:
+          description: successful operation
+  /bitcoins/comprar:
+    post:
+      tags:
+      - bitcoins
+      summary: Realiza compra de bitcoins
+      description: Retorna o sucesso da compra de bitcoins
+      operationId: comprarBitcoins
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Campos de compra
+        required: true
+        schema:
+          $ref: '#/definitions/Bitcoins'
+      responses:
+        default:
+          description: successful operation
     
 definitions:
   Cliente:
@@ -170,6 +205,26 @@ definitions:
       id:
         type: integer
         format: int64
+  Acoes:
+    type: object
+    properties:
+      ativo:
+        type: string
+      quantidade:
+        type: integer
+        format: int64
+      valor:
+        type: number
+        format: float
+  Bitcoins:
+    type: object
+    properties:
+      quantidade:
+        type: integer
+        format: int64
+      valor:
+        type: number
+        format: float
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
 # basePath: /bruno.silva/InvestX/1.0.0
