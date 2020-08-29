@@ -99,6 +99,36 @@ paths:
           description: successful operation
         400:
           description: bad input parameter
+  /produtos:
+    get:
+      tags:
+        - produtos
+      summary: Retorna todos os produtos disponíveis na plataforma
+      operationId: getProducts
+      description: Obtém produtos do usuário
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        200:
+          description: successful operation
+        400:
+          description: bad input parameter
+  /produtos/cadastrar:
+    post:
+      tags:
+        - produtos
+      summary: Inclui novo produto na plaforma
+      operationId: storeProduct
+      description: Novo produto
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        200:
+          description: successful operation
+        400:
+          description: bad input parameter
   /acoes:
     get:
       tags:
