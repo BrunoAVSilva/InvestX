@@ -13,34 +13,33 @@ info:
 
 # tags are used for organizing operations
 tags:
-- name: clientes
-  description: Operações relacionadas ao clientes
-- name: produtos
-  description: Operações relacionadas aos produtos
-- name: acoes
-  description: Operações relacionadas a ações
-- name: bitcoins
-  description: Operações relacionadas a bitcoins
-
+  - name: clientes
+    description: Operações relacionadas ao clientes
+  - name: produtos
+    description: Operações relacionadas aos produtos
+  - name: acoes
+    description: Operações relacionadas a ações
+  - name: bitcoins
+    description: Operações relacionadas a bitcoins
 
 paths:
   /clientes:
     post:
       tags:
-      - clientes
+        - clientes
       summary: add an cliente
       operationId: addCliente
       description: Add an cliente to the system
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: Cliente
-        description: Cliente to add
-        schema:
-          $ref: '#/definitions/Cliente'
+        - in: body
+          name: Cliente
+          description: Cliente to add
+          schema:
+            $ref: '#/definitions/Cliente'
       responses:
         201:
           description: cliente created
@@ -51,31 +50,31 @@ paths:
   /clientes/clienteId:
     get:
       tags:
-      - clientes
+        - clientes
       summary: searches inventory
       operationId: searchInventory
       description: Get cliente
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: query
-        name: searchString
-        description: pass an optional search string for looking up inventory
-        required: false
-        type: string
-      - in: query
-        name: skip
-        description: number of records to skip for pagination
-        type: integer
-        format: int32
-        minimum: 0
-      - in: query
-        name: limit
-        description: maximum number of records to return
-        type: integer
-        format: int32
-        minimum: 0
-        maximum: 50
+        - in: query
+          name: searchString
+          description: pass an optional search string for looking up inventory
+          required: false
+          type: string
+        - in: query
+          name: skip
+          description: number of records to skip for pagination
+          type: integer
+          format: int32
+          minimum: 0
+        - in: query
+          name: limit
+          description: maximum number of records to return
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 50
       responses:
         200:
           description: search results matching criteria
@@ -85,15 +84,30 @@ paths:
               $ref: '#/definitions/Cliente'
         400:
           description: bad input parameter
+  /clientes/cadastrar:
+    post:
+      tags:
+        - clientes
+      summary: cadastrar novo cliente na plataforma
+      operationId: signupClient
+      description: Obtém os ações do usuário
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        200:
+          description: successful operation
+        400:
+          description: bad input parameter
   /acoes:
     get:
       tags:
-      - acoes
+        - acoes
       summary: obtenção de ações do usuário
       operationId: getAcoes
       description: Obtém os ações do usuário
       produces:
-      - application/json
+        - application/json
       parameters: []
       responses:
         200:
@@ -103,50 +117,50 @@ paths:
   /acoes/vender:
     post:
       tags:
-      - acoes
+        - acoes
       summary: Realiza venda de ações
       description: Retorna o sucesso da venda
       operationId: venderAcoes
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: body
-        description: Campos de venda
-        required: true
-        schema:
-          $ref: '#/definitions/Acoes'
+        - in: body
+          name: body
+          description: Campos de venda
+          required: true
+          schema:
+            $ref: '#/definitions/Acoes'
       responses:
         default:
           description: successful operation
   /acoes/comprar:
     post:
       tags:
-      - acoes
+        - acoes
       summary: Realiza compra de ações
       description: Retorna o sucesso da compra
       operationId: comprarAcoes
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: body
-        description: Campos de compra
-        required: true
-        schema:
-          $ref: '#/definitions/Acoes'
+        - in: body
+          name: body
+          description: Campos de compra
+          required: true
+          schema:
+            $ref: '#/definitions/Acoes'
       responses:
         default:
           description: successful operation
   /bitcoins:
     get:
       tags:
-      - bitcoins
+        - bitcoins
       summary: obtenção de bitcoins do usuário
       operationId: getBitcoins
       description: Obtém os bitcoins do usuário
       produces:
-      - application/json
+        - application/json
       parameters: []
       responses:
         200:
@@ -156,42 +170,42 @@ paths:
   /bitcoins/vender:
     post:
       tags:
-      - bitcoins
+        - bitcoins
       summary: Realiza venda de bitcoins
       description: Retorna o sucesso da venda de bitcoins
       operationId: venderBitcoins
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: body
-        description: Campos de venda
-        required: true
-        schema:
-          $ref: '#/definitions/Bitcoins'
+        - in: body
+          name: body
+          description: Campos de venda
+          required: true
+          schema:
+            $ref: '#/definitions/Bitcoins'
       responses:
         default:
           description: successful operation
   /bitcoins/comprar:
     post:
       tags:
-      - bitcoins
+        - bitcoins
       summary: Realiza compra de bitcoins
       description: Retorna o sucesso da compra de bitcoins
       operationId: comprarBitcoins
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: body
-        description: Campos de compra
-        required: true
-        schema:
-          $ref: '#/definitions/Bitcoins'
+        - in: body
+          name: body
+          description: Campos de compra
+          required: true
+          schema:
+            $ref: '#/definitions/Bitcoins'
       responses:
         default:
           description: successful operation
-    
+
 definitions:
   Cliente:
     type: object
@@ -229,6 +243,6 @@ definitions:
 host: virtserver.swaggerhub.com
 # basePath: /bruno.silva/InvestX/1.0.0
 schemes:
- - https
+  - https
 # Added by API Auto Mocking Plugin
 basePath: /ramuspedro/investx/1.0.0
